@@ -74,16 +74,16 @@
     // Mostrar la interpretación
     let texto = "";
 
-    if (puntaje >= 80) {
-      texto = "¡Tienes un alto impulso al logro! Eres una persona con una fuerte orientación a resultados, planificación efectiva y mucha proactividad.";
+    if (puntaje >= 120) {
+      texto = "¡Excelente! Tienes un alto impulso al logro. Se nota tu fuerte orientación a resultados, tu planificación efectiva y tu actitud proactiva. ¡Sigue así y continúa inspirando a otros!";
+    } else if (puntaje >= 90) {
+      texto = "¡Muy bien! Demuestras un buen impulso al logro. Tienes bases sólidas y con pequeños ajustes en tu proactividad y enfoque estratégico, podrías alcanzar aún mayores resultados.";
     } else if (puntaje >= 60) {
-      texto = "¡Buen trabajo! Tienes un buen impulso al logro. Sin embargo, podrías optimizar aún más tu enfoque en la proactividad y la mejora continua.";
-    } else if (puntaje >= 40) {
-      texto = "¡Ánimo! Es recomendable fortalecer tu planificación, compromiso con las metas y actitud proactiva.";
-    } else if (puntaje >= 20) {
-      texto = "¡Te estamos apoyando! Podrías beneficiarte de trabajar más en la organización, enfoque en resultados y motivación personal.";
+      texto = "¡Vas por buen camino! Estás desarrollando tu impulso al logro. Fortalecer tu planificación, compromiso con las metas y actitud proactiva te ayudará a avanzar con más confianza.";
+    } else if (puntaje >= 30) {
+      texto = "¡Estás en proceso de crecimiento! Este es un buen momento para enfocarte en tu organización personal, claridad de metas y motivación. Con pequeñas acciones, puedes lograr grandes avances.";
     } else {
-      texto = "¡No te preocupes! Es importante trabajar en el desarrollo de habilidades de planificación, cumplimiento de metas y proactividad para mejorar tu desempeño.";
+      texto = "Cada camino comienza con un primer paso. Este resultado es una oportunidad para explorar y fortalecer tus habilidades de logro. Con apoyo, práctica y confianza, puedes alcanzar todo lo que te propongas.";
     }
 
     document.getElementById("interpretacion").innerHTML = `
