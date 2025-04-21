@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Test - Impulso al Logro</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    h2 {
+      margin-top: 2rem;
+    }
+    .question {
+      margin: 1rem 0;
+      padding: 1rem;
+      background: #f0f0f0;
+      border-radius: 8px;
+    }
+    .likert {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 0.5rem;
+    }
+    .likert label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    button {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      background-color: #2d89ef;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1b5bbf;
+    }
+  </style>
+</head>
+<body>
+  <h1>Test de Autodiagnóstico: Impulso al Logro</h1>
+
+  <form id="testForm" onsubmit="return enviarFormulario(event)">
+    <!-- Sección 1 -->
+    <h2>Sección 1: Planificación y Organización</h2>
+    <div id="seccion1"></div>
+
+    <!-- Sección 2 -->
+    <h2>Sección 2: Cumplimiento de Metas</h2>
+    <div id="seccion2"></div>
+
+    <!-- Sección 3 -->
+    <h2>Sección 3: Proactividad y Superación</h2>
+    <div id="seccion3"></div>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    const seccion1 = [
+      "Antes de iniciar un proyecto o tarea, establezco un plan detallado de actividades.",
+      "Asigno tiempo y recursos de manera eficiente para cumplir con mis objetivos.",
+      "Ajusto mi planificación de acuerdo con cambios o imprevistos sin perder de vista los resultados.",
+      "Priorizo mis tareas según su impacto en los objetivos generales.",
+      "Me anticipo a posibles obstáculos y busco soluciones antes de que se conviertan en problemas.",
+      "Mantengo una agenda organizada para gestionar mis responsabilidades de manera efectiva.",
+      "Evalúo regularmente mi desempeño y realizo ajustes a mi planificación cuando es necesario.",
+      "Delego tareas cuando es conveniente para optimizar los recursos y tiempos de ejecución.",
+      "Establezco metas claras y medibles para cada proyecto en el que participo.",
+      "Me esfuerzo por mejorar continuamente mis habilidades de organización y gestión del tiempo."
+    ];
+
+    const seccion2 = [
+      "Me esfuerzo constantemente en alcanzar o superar las metas establecidas.",
+      "Mantengo el enfoque en los resultados, evitando distracciones innecesarias.",
+      "Cumplo con los plazos y compromisos adquiridos en mis responsabilidades laborales.",
+      "Me motiva la superación personal y busco oportunidades para mejorar mi desempeño.",
+      "Cuando enfrento dificultades, persevero hasta encontrar soluciones efectivas.",
+      "Evalúo mi rendimiento con regularidad para identificar oportunidades de mejora.",
+      "Busco retroalimentación de colegas y superiores para mejorar mi desempeño.",
+      "Encuentro satisfacción en alcanzar mis metas y disfruto los desafíos.",
+      "Me mantengo motivado incluso cuando los objetivos requieren un esfuerzo adicional.",
+      "Considero los errores como oportunidades de aprendizaje para futuros desafíos."
+    ];
+
+    const seccion3 = [
+      "Tomo la iniciativa en proyectos sin necesidad de que me lo indiquen.",
+      "Busco constantemente nuevas oportunidades para aprender y crecer profesionalmente.",
+      "Aporto ideas y soluciones innovadoras cuando enfrento problemas en mi trabajo.",
+      "Me adapto rápidamente a cambios y nuevos desafíos sin afectar mi productividad.",
+      "Mantengo una actitud positiva frente a los obstáculos y busco maneras de superarlos.",
+      "Actúo con determinación cuando me propongo alcanzar un objetivo.",
+      "Busco oportunidades de formación y desarrollo para mejorar mi desempeño.",
+      "Me fijo metas personales y profesionales a corto, mediano y largo plazo.",
+      "Encuentro formas de motivarme a mí mismo incluso en situaciones adversas.",
+      "Me esfuerzo por ser un referente de compromiso y logro en mi equipo de trabajo."
+    ];
+
+    function renderQuestions(containerId, preguntas, seccionPrefix) {
+      const container = document.getElementById(containerId);
+      preguntas.forEach((texto, i) => {
+        const num = i + 1;
+        const id = `${seccionPrefix}_${num}`;
+        const div = document.createElement("div");
+        div.className = "question";
+        div.innerHTML = `
+          <p>${texto}</p>
+          <div class="likert">
+            ${[1,2,3,4,5].map(val => `
+              <label>
+                ${val}<br><input type="radio" name="${id}" value="${val}" required>
+              </label>
+            `).join('')}
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    renderQuestions("seccion1", seccion1, "s1");
+    renderQuestions("seccion2", seccion2, "s2");
+    renderQuestions("seccion3", seccion3, "s3");
+
+    function enviarFormulario(e) {
+      e.preventDefault();
+
+      const formData = new FormData(document.getElementById("testForm"));
+      let total = 0;
+      for (let value of formData.values()) {
+        total += parseInt(value, 10);
+      }
+
+      localStorage.setItem("resultadoTest", total);
+      window.open("results.html", "_blank");
+      return false;
+    }
+  </script>
+</body>
+</html>

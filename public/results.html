@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Resultados del Test</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+      background-color: #fdfdfd;
+      overflow: hidden;
+    }
+    h1 {
+      text-align: center;
+      color: #2d89ef;
+      margin-bottom: 1rem;
+    }
+    .resultado {
+      padding: 2rem;
+      background: #ffecb3;
+      border-left: 8px solid #2d89ef;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+      text-align: center;
+    }
+    .btn {
+      display: block;
+      width: 200px;
+      margin: 2rem auto;
+      padding: 10px;
+      font-size: 1.2rem;
+      background-color: #2d89ef;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+    }
+    .btn:hover {
+      background-color: #1b5bbf;
+    }
+    #confeti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Confeti -->
+  <div id="confeti"></div>
+
+  <h1>¡Felicidades por completar el test!</h1>
+  <div class="resultado" id="interpretacion">
+    <p><strong>Puntaje total:</strong> 0 / 150</p>
+    <p>Estamos procesando tus resultados...</p>
+  </div>
+
+  <button class="btn" onclick="window.close()">Cerrar</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    // Obtener el puntaje
+    const puntaje = parseInt(localStorage.getItem("resultadoTest"), 10);
+
+    // Mostrar la interpretación
+    let texto = "";
+
+    if (puntaje >= 80) {
+      texto = "¡Tienes un alto impulso al logro! Eres una persona con una fuerte orientación a resultados, planificación efectiva y mucha proactividad.";
+    } else if (puntaje >= 60) {
+      texto = "¡Buen trabajo! Tienes un buen impulso al logro. Sin embargo, podrías optimizar aún más tu enfoque en la proactividad y la mejora continua.";
+    } else if (puntaje >= 40) {
+      texto = "¡Ánimo! Es recomendable fortalecer tu planificación, compromiso con las metas y actitud proactiva.";
+    } else if (puntaje >= 20) {
+      texto = "¡Te estamos apoyando! Podrías beneficiarte de trabajar más en la organización, enfoque en resultados y motivación personal.";
+    } else {
+      texto = "¡No te preocupes! Es importante trabajar en el desarrollo de habilidades de planificación, cumplimiento de metas y proactividad para mejorar tu desempeño.";
+    }
+
+    document.getElementById("interpretacion").innerHTML = `
+      <p><strong>Puntaje total:</strong> ${puntaje} / 150</p>
+      <p>${texto}</p>
+    `;
+
+    // Función para generar confeti
+    function lanzarConfeti() {
+      const duration = 5 * 1000; // duración del confeti (en ms)
+      const end = Date.now() + duration;
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 50,
+          origin: { x: 0 },
+          colors: ['#ff6347', '#ffeb3b', '#2d89ef']
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 50,
+          origin: { x: 1 },
+          colors: ['#ff6347', '#ffeb3b', '#2d89ef']
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
+    }
+
+    // Iniciar confeti cuando se cargue la página
+    lanzarConfeti();
+  </script>
+</body>
+</html>
